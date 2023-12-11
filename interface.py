@@ -118,9 +118,9 @@ class Interface:
               self.vincularMotoristaOnibus(nome, linha)
 
           elif opcao2 == 2:
-              linha = input("Digite o número da linha do Ônibus que deseja vincular: ")
+              linha = int(input("Digite o número da linha do Ônibus que deseja vincular: "))
               nome = input("Digite o nome do motorista que deseja vincular: ")
-              self.vincularMotoristaOnibus(linha, nome)
+              self.vincularOnibusMotorista(linha, nome)
 
           elif opcao2 == 0:
               print("Voltando ao menu principal")
@@ -168,6 +168,24 @@ class Interface:
             print("Linha inexistente")
       else:
         print("Motorista inexistente")
+  def vincularOnibusMotorista(self, linha, nome):
+    for onibus in self.__onibus:
+      if onibus.getLinha() == linha:
+        for motorista in self.__motoristas:
+          if motorista.getNome() == nome:
+            if nome not in onibus.getMotoristas():
+              motorista.vinculaOnibus(linha)
+              onibus.vinculaMotorista(nome)
+            
+              print("Onibus cadastrado com sucesso")
+              break
+            else:
+              print("Motorista já cadastrado")
+          else: 
+            print("Motorista inexistente")
+      else:
+        print("Onibus inexistente")
+
 
   def desvincularMotoristaOnibus(self, nome, linha):
     for motorista in self.__motoristas:
